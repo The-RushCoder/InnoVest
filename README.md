@@ -1,116 +1,170 @@
 # InnoVest
 
-InnoVest is a startup crowdfunding web application built with a React frontend and a Django REST Framework backend. The project brings together startup and company information, fundraising details, user accounts, investment-related workflows, and supporting services in one web application.
+InnoVest is a full-stack startup ecosystem platform built with Django and React. The project combines investor, startup, community, and operational workflows into a single application, including company management, user authentication, KYC verification, payments, event handling, and communication features.
 
 ## Overview
 
-The application is organized as a full-stack project:
+This repository contains the backend API and frontend client for a startup-focused platform. The backend is built with Django + Django REST Framework and exposes a broad set of REST endpoints for company and user operations. The frontend is a React application using Material UI and charting libraries for dashboards and management interfaces.
 
-- **Frontend:** React 18, React Router, Material UI, Axios, Firebase, and charting components.
-- **Backend:** Django and Django REST Framework.
-- **Authentication:** Django authentication with JWT support through Simple JWT.
-- **Database:** SQLite is configured as the default database in the current Django settings.
-- **Supporting modules:** Payments, company and user management, permissions, events, email services, chat, community features, KYC, and an ML API.
+The project includes modules for:
 
-## Key Features
+- User authentication and authorization
+- Company onboarding and company control
+- Investment and fundraising workflow support
+- KYC submission and verification
+- Payments and gateway integration
+- Email and notification systems
+- Community and messaging services
+- Event management
+- ML-based startup analysis and risk evaluation
+- Dashboard and reporting screens
 
-- User authentication and account-related workflows
-- Startup/company profiles and company management
-- Business plan and fundraising-term APIs
-- Investment and transaction-related workflows
-- Role and permission management
-- KYC submission and related controls
-- Payment integration configured for sandbox use
-- Events, contact, email, chat, and community modules
-- React-based frontend connected to backend APIs
-- Machine-learning API module
+## Tech Stack
 
-Feature availability depends on the relevant module configuration and local environment. This repository is a development project and should not be treated as a production deployment without further configuration and security review.
+### Backend
+- Python
+- Django 5.x
+- Django REST Framework
+- JWT authentication
+- SQLite for local development
+- CORS support for frontend integration
 
-## Technology Stack
+### Frontend
+- React 18
+- Material UI
+- React Router
+- Chart.js / Recharts
+- Axios for API calls
 
-| Layer | Technologies |
-|---|---|
-| Frontend | React, JavaScript, React Router, Material UI, Axios, Firebase |
-| Backend | Python, Django, Django REST Framework |
-| Authentication | Simple JWT |
-| Database | SQLite by default |
-| Data and ML | Pandas, NumPy, scikit-learn, SciPy, Joblib |
-| Integrations | Payment, email, and API integrations |
-| Version control | Git, GitHub |
+### Additional tools
+- Firebase integration
+- SSLCommerz payment integration
+- ML model support with scikit-learn / joblib
+- Email delivery via SMTP and Resend
 
-## Repository Structure
+## Project Structure
 
 ```text
 InnoVest/
-├── Innovest/                 # Django project configuration and URL routing
-├── authentication/           # Authentication-related application
-├── backend/                  # Core backend views and APIs
-├── companies/                # Company-related functionality
-├── payments/                 # Payment-related functionality
-├── ml_api/                   # Machine-learning API endpoints
-├── events/                   # Event-related functionality
-├── chat/                     # Chat functionality
-├── community_backend/        # Community functionality
-├── kyc/                      # KYC-related functionality
-├── frontend/                 # React frontend
-├── media/                    # User and application media files
-├── manage.py                 # Django management command entry point
-├── requirements.txt          # Python dependencies
+├── Innovest/                 # Django project settings and URL routing
+├── authentication/           # User auth and custom user model
+├── backend/                  # Core backend logic and APIs
+├── companies/                # Company-related endpoints/models
+├── company_control/          # Company operations and control logic
+├── company_permission/       # Company permission management
+├── company_addUser/          # Add user to company workflow
+├── contact/                  # Contact forms and messaging
+├── payments/                 # Payment integration and invoice/payment routes
+├── events/                   # Event management
+├── chat/                     # Chat/community messaging
+├── community_backend/        # Community features
+├── emails/                  # Email-related logic
+├── mailer/                  # Mailer utilities
+├── kyc/                     # KYC data models/endpoints
+├── kyc_control/             # KYC control workflow
+├── my_companies/            # Company portfolio / user-company relations
+├── my_companies_trackprogress/
+├── my_companies_permission/
+├── settings/                # App settings and configuration
+├── user_control/            # User account management
+├── ml_api/                  # Machine learning API endpoints
+├── frontend/                # React frontend app
+├── email-frontend/          # Secondary email frontend app
+├── media/                   # Uploaded files/media
+├── db.sqlite3               # SQLite database (local dev)
+├── manage.py                # Django entry point
+├── requirements.txt         # Python dependencies
+├── package.json             # Root Node dependencies
+├── manual_testing_dashboard.html
+├── edge_automation_tests/  # Automated testing utilities
+├── test_model_status.py     # ML or model utility checks
+├── test_prediction.py       # Prediction utilities/tests
 └── README.md
 ```
 
-Additional app directories handle permissions, user/company controls, email, settings, and company progress tracking.
+## Main Features
 
-## Requirements
+### Authentication and access control
+- Custom user model through `authentication`
+- JWT-based API authentication
+- Email-based login backend support
+- Role/permission flows for company users
 
-Install the following before running the project:
+### Company and startup operations
+- Company onboarding and management
+- Permission and assignment workflows
+- Activity and progress tracking
+- Startup-related data and dashboards
 
-- Python 3.10 or later
-- Node.js and npm
-- Git
+### KYC and compliance
+- KYC submission flow
+- Document storage and related media handling
+- Verification and control endpoints
 
-## Run Locally
+### Payments and financial workflows
+- Payment routes and gateway integration
+- SSLCommerz setup in the Django settings
+- Frontend callback URLs configured for local development
 
-### 1. Clone the repository
+### Community and communication
+- Chat endpoints
+- Community backend modules
+- Contact form integration
+- Email notification features
+
+### Event management and reporting
+- Event models, endpoints, and related resources
+- Reporting and dashboard views
+
+### AI / ML layer
+- Model handling and prediction endpoints exist under `ml_api`
+- Training data files and model artifacts such as `model.joblib`, `Startup_Dataset.csv`, and `HateSpeech_Dataset.csv` are present
+
+## Setup and Installation
+
+### 1. Create a virtual environment
 
 ```bash
-git clone https://github.com/The-RushCoder/InnoVest.git
-cd InnoVest
+python -m venv .venv
 ```
 
-### 2. Set up the backend
-
-Create and activate a virtual environment.
-
-**Windows PowerShell**
+On Windows PowerShell:
 
 ```powershell
-python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 
-**macOS/Linux**
+### 2. Install Python dependencies
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
-Install the Python dependencies and apply database migrations:
+### 3. Apply database migrations
 
 ```bash
-python -m pip install --upgrade pip
-pip install -r requirements.txt
 python manage.py migrate
+```
+
+### 4. Create a Django admin user (optional but recommended)
+
+```bash
+python manage.py createsuperuser
+```
+
+### 5. Start the backend server
+
+```bash
 python manage.py runserver
 ```
 
-The Django development server normally runs at `http://127.0.0.1:8000/`.
+The backend will run on:
 
-### 3. Set up the frontend
+```text
+http://localhost:8000
+```
 
-Open another terminal at the repository root:
+### 6. Start the frontend
 
 ```bash
 cd frontend
@@ -118,48 +172,62 @@ npm install
 npm start
 ```
 
-The React development server normally runs at `http://localhost:3000/`.
+The frontend is expected to run on:
 
-If the frontend API base URL is configured in source code, update it to match the local backend URL before testing the application.
+```text
+http://localhost:3000
+```
 
-## API Overview
+## Configuration Notes
 
-The backend exposes REST endpoints under `/api/`. The project URL configuration includes routes for areas such as:
+The project is currently configured for local development and uses:
 
-- Authentication: `/api/auth/`
-- Payments: `/api/payments/`
-- Company and business-plan data
-- Fundraising terms
-- Events and contact
-- User and company permissions
-- Email and mailer services
-- Chat and community
-- KYC submission and management
-- Machine-learning endpoints: `/api/ml/`
+- SQLite database at the project root
+- Django `DEBUG = True`
+- Local URLs for frontend and backend communication
+- SMTP email configuration for Gmail
+- SSLCommerz sandbox mode enabled
 
-For the exact route names and request/response schemas, refer to `Innovest/urls.py` and the URL configuration inside each application.
+Important: for production use, you should move sensitive values such as:
 
-## Configuration and Security
+- `SECRET_KEY`
+- email credentials
+- payment credentials
+- allowed hosts
 
-Before running the project, review `Innovest/settings.py` and the relevant integration modules. Configure your own development credentials for email and payment services, and keep secrets outside source control.
+into environment variables or a secure configuration system.
 
-**Do not commit API keys, passwords, payment credentials, production data, or private user documents.** Use environment variables or a local, untracked configuration file for credentials. The current project configuration should receive a security review before any public or production deployment, including `SECRET_KEY`, `DEBUG`, `ALLOWED_HOSTS`, CORS settings, email settings, and payment settings.
+## Running the Project
 
-The payment integration is configured for sandbox use in the current settings. Use test credentials for local development.
+In a typical local workflow:
+
+1. Activate the Python environment
+2. Run the Django backend
+3. Open the frontend app in another terminal
+4. Use the app via `http://localhost:3000`
+
+## Notable Files
+
+- `manage.py`: Django project entry point
+- `Innovest/settings.py`: project configuration, installed apps, DB config, email config, JWT config
+- `Innovest/urls.py`: API route setup
+- `frontend/package.json`: React app dependencies and scripts
+- `requirements.txt`: Python backend dependencies
+- `manual_testing_dashboard.html`: manual testing dashboard file
 
 ## Development Notes
 
-- The backend uses Django migrations to manage database schema changes.
-- API authentication is configured with JWT support through Django REST Framework Simple JWT.
-- The frontend and backend run as separate development servers.
-- Keep frontend API URLs, CORS configuration, and local service settings consistent when changing ports or environments.
+This repository appears to be a working, multi-module platform in active development. Some directories and files look like supporting utilities, manual tests, and experiment code rather than production core modules. The main application structure is centered around the Django project and the React frontend.
 
-## Current Scope
+## Suggested Next Steps
 
-InnoVest is a project for demonstrating full-stack application development, API integration, database-backed workflows, and supporting services. Deployment steps, credentials, and environment-specific settings may need to be adapted for your own machine.
+- Move secrets into `.env` files
+- Split development and production settings
+- Add automated tests for key APIs
+- Document the API endpoints more explicitly
+- Review and clean legacy experimental files
+- Standardize frontend and backend environment configuration
 
-## Author
+## License
 
-**Mohin Khan**
-
-GitHub: [The-RushCoder](https://github.com/The-RushCoder)
+This project does not currently declare a license in the repository root. If this project is intended for public or commercial use, add an appropriate license file before distribution.
